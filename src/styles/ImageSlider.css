@@ -1,0 +1,73 @@
+/* ImageSlider.css */
+.slider-container {
+  width: 100%;
+  overflow: hidden;
+  background: transparent;
+  padding: 40px 0;
+  position: relative;
+}
+
+.slider-track {
+  display: flex;
+  width: calc(250px * 12); /* 250px là chiều rộng mỗi ảnh * 12 ảnh */
+  animation: scroll 30s linear infinite;
+}
+
+.slide {
+  width: 250px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+  perspective: 100px;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.5s;
+  filter: grayscale(20%) brightness(0.8);
+}
+
+.slide img:hover {
+  transform: scale(1.05);
+  filter: grayscale(0%) brightness(1);
+  border-color: #3b82f6;
+}
+
+/* Hiệu ứng cuộn vô tận */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-250px * 6)); /* Cuộn hết 6 ảnh đầu thì reset */
+  }
+}
+
+/* Thêm hiệu ứng làm mờ 2 đầu để trông chuyên nghiệp hơn */
+.slider-container::before,
+.slider-container::after {
+  content: "";
+  height: 100%;
+  position: absolute;
+  width: 150px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.slider-container::before {
+  left: 0;
+  top: 0;
+  background: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+}
+
+.slider-container::after {
+  right: 0;
+  top: 0;
+  background: linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+}

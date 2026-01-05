@@ -1,0 +1,79 @@
+.fixed-viewport {
+  width: 100%;
+  height: 600px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  perspective: 1500px; /* Độ sâu 3D */
+}
+
+.fixed-scene {
+  width: 200px; 
+  height: 280px;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.fixed-rail {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-style: preserve-3d;
+  cursor: grab;
+  /* Quan trọng: không thêm transition vào đây để tránh lag khi drag */
+}
+
+.fixed-rail:active {
+  cursor: grabbing;
+}
+
+.anchor-point {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden; /* Chỉ hiện ảnh ở mặt trước trụ */
+}
+
+.static-card {
+  width: 200px;  /* Đã thu nhỏ từ 280px */
+  height: 280px; /* Đã thu nhỏ từ 380px */
+  border-radius: 12px; /* Bo góc nhỏ lại cho cân đối */
+  background: #000;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.8);
+}
+
+.static-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.label {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: #3b82f6;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(0,0,0,1);
+}
+
+.drag-hint {
+  position: absolute;
+  bottom: 40px;
+  color: #666;
+  letter-spacing: 1px;
+  font-size: 12px;
+  text-transform: uppercase;
+}

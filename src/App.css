@@ -1,0 +1,155 @@
+/* Layout chính: Cố định khung màn hình */
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden; /* Header sẽ không bị cuộn mất */
+  position: relative;
+  z-index: 1;
+  background-color: #000;
+  min-height: 100vh;
+}
+
+/* Container chứa toàn bộ phần có thể cuộn (Content + Footer) */
+.scroll-container {
+  flex: 1;
+  overflow-y: auto; /* Kích hoạt cuộn ở đây */
+  
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Container chia 3 cột */
+.app-container {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 260px 1fr 240px;
+  width: 100%;
+  min-height: calc(100vh - 64px); /* Đảm bảo đẩy Footer xuống ít nhất là hết màn hình */
+}
+
+
+.app-content-wrapper {
+  flex: 1 0 auto; /* Chiếm hết không gian còn lại, không co lại */
+}
+
+/* Header cố định trên cùng */
+.header-container {
+  height: 64px;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(10, 10, 10, 0.8) !important;
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
+}
+
+/* Nội dung chính */
+.content-area {
+  padding: 40px 60px;
+  color: #fff;
+  line-height: 1.6;
+}
+
+/* Sidebar và TOC: Dính (Sticky) khi cuộn nội dung */
+.sidebar, .right-toc {
+  position: sticky;
+  top: 0;
+  height: calc(100vh - 64px); /* Chiều cao cố định bằng vùng nhìn thấy */
+  overflow-y: auto; /* Tự cuộn nếu mục lục quá dài */
+  background: transparent;
+}
+
+.sidebar { border-right: 1px solid rgba(255, 255, 255, 0.05); }
+.right-toc { border-left: 1px solid rgba(255, 255, 255, 0.05); }
+
+
+
+/* --- HỆ THỐNG NỀN ACEPYR (Giữ nguyên hiệu ứng của bạn) --- */
+.acepyr-bg-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: #000;
+  overflow: hidden;
+}
+.bg-gradient-circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.4;
+  animation: float-bg 20s infinite alternate ease-in-out;
+}
+.circle-blue {
+  width: 60vw; height: 60vw;
+  background: radial-gradient(circle, #7a85ff 0%, transparent 70%);
+  top: -15%; left: -10%;
+}
+.circle-purple {
+  width: 50vw; height: 50vw;
+  background: radial-gradient(circle, #a45cdb 0%, transparent 70%);
+  bottom: -10%; right: -5%;
+  animation-delay: -5s;
+}
+@keyframes float-bg {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(5%, 5%) scale(1.1); }
+}
+
+/* Tiện ích nội dung */
+.quote-box {
+  border-left: 2px solid #7a85ff;
+  padding: 20px;
+  background: rgba(122, 133, 255, 0.05);
+  font-style: italic;
+  margin: 20px 0;
+}
+.code-block {
+  background: #0a0a0a;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #1a1a1a;
+  font-family: 'Fira Code', monospace;
+}
+
+/* Tiêu đề chính */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em; /* Hơi co lại một chút để trông hiện đại */
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+}
+
+/* Tiêu đề phụ */
+h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Nội dung văn bản */
+p, li {
+  font-size: 1rem;
+  line-height: 1.7; /* Độ giãn dòng rộng giúp đọc dễ hơn */
+  color: rgba(255, 255, 255, 0.7); /* Màu trắng mờ đặc trưng */
+  font-weight: 400;
+}
+
+/* Badge hoặc nhãn nhỏ */
+.badge {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.05em; /* Giãn chữ ra đối với các nhãn nhỏ */
+  text-transform: uppercase;
+}
+
+/* Font cho Code (Sử dụng font đơn cách) */
+code, pre {
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-variant-ligatures: contextual; /* Hỗ trợ viết ký hiệu code đẹp */
+}

@@ -1,0 +1,113 @@
+.footer-container {
+  width: 100%;
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: auto; /* Tự động tạo khoảng cách phía trên để đẩy xuống đáy */
+  padding: 20px 0; /* Thêm padding để cân đối */
+  flex-shrink: 0; /* Ngăn footer bị co lại khi nội dung chính quá dài */
+}
+
+
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.footer-brand img {
+  height: 18px; /* Thu nhỏ logo */
+}
+
+.footer-divider-v {
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.powered-by {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.footer-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-nav a {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  font-size: 12px;
+  transition: color 0.2s;
+}
+
+.footer-nav a:hover {
+  color: #fff;
+}
+
+.footer-social {
+  display: flex;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.footer-legal-bar {
+  text-align: center;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.footer-legal-bar p {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.2px;
+}
+.footer-social {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.social-link {
+  display: flex;
+  transition: transform 0.2s ease;
+}
+
+.social-img {
+  width: 20px;  /* Chỉnh kích thước icon vừa vặn */
+  height: 20px;
+  object-fit: contain;
+  /* Nếu icon gốc là màu đen, dùng dòng dưới để chuyển sang màu trắng */
+  filter: brightness(0) invert(1); 
+  opacity: 0.6;
+}
+
+.social-link:hover .social-img {
+  opacity: 1;
+  transform: translateY(-2px);
+  /* Chuyển sang màu xanh đặc trưng của Acepyr khi hover */
+  filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(202deg) brightness(101%) contrast(105%);
+}

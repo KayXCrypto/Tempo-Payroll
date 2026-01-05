@@ -1,0 +1,62 @@
+.sidebar {
+  background: rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(15px);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  /* Chiều cao tính từ Header trở xuống */
+  height: calc(100vh - 64px); 
+  overflow-y: auto;
+}
+
+/* Tùy chỉnh thanh cuộn cho Sidebar (Slim & Hiện đại) */
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.sidebar-inner {
+  padding: 32px 0 100px 0; /* Padding bottom lớn để không bị Footer che mất mục cuối */
+}
+
+.sidebar-group {
+  margin-bottom: 24px;
+}
+
+.sidebar-group-label {
+  padding: 0 24px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.sidebar-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-item {
+  padding: 8px 24px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-left: 2px solid transparent;
+}
+
+.sidebar-item:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.sidebar-item.is-active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+  border-left-color: #fff; /* Vạch trắng đặc trưng của tài liệu */
+  font-weight: 500;
+}
