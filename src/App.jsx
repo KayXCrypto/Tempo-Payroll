@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Zap, Terminal, Activity, Users, CreditCard, LayoutGrid } from 'lucide-react';
+import { Zap, Terminal, Activity, Users, CreditCard, LayoutGrid, Fuel } from 'lucide-react';
 
 // Components
 import WalletPanel from './components/wallet/WalletPanel';
@@ -10,7 +10,7 @@ import EmployeeCard from './components/payroll/EmployeeCard';
 import { useEmployees } from './hooks/useEmployees';
 import { usePayroll } from './hooks/usePayroll';
 import { useTokenBalances } from './hooks/useTokenBalances';
-import { TOKENS } from './config/contracts';
+import { TOKENS, getFeeTokens } from './config/contracts';
 import { formatUSD } from './utils/formatters';
 import logo from '../public/favicon.ico';
 
@@ -20,6 +20,7 @@ export default function App() {
   ]);
 
   const [selectedToken, setSelectedToken] = useState(TOKENS[1].address);
+  const [feeToken, setFeeToken] = useState(TOKENS[0].address); // Token để trả phí
   const { employees, addEmployee, removeEmployee, getTotalAmount } = useEmployees();
   const { balances, isLoading: loadingBalances } = useTokenBalances();
 
@@ -37,6 +38,8 @@ export default function App() {
   });
 
   const currentToken = TOKENS.find(t => t.address === selectedToken) || TOKENS[1];
+  const currentFeeToken = TOKENS.find(t => t.address === feeToken) || TOKENS[0];
+  const feeTokensList = getFeeTokens();
 
   return (
     <div className="min-h-screen bg-[#050810] text-slate-300 p-4 md:p-8 font-sans">
@@ -45,7 +48,6 @@ export default function App() {
         {/* Header */}
         <header className="flex items-center gap-3">
           <div className="bg-blue-600/10 p-1 rounded-lg border border-blue-500/20">
-            {/* Thay thế biểu tượng Zap bằng thẻ img */}
             <img
               src={logo}
               alt="Tempo Logo"
@@ -72,7 +74,7 @@ export default function App() {
               <div
                 key={token.address}
                 onClick={() => setSelectedToken(token.address)}
-                className={`cursor-pointer transition-all border p-4 rounded-xl ${selectedToken === token.address
+                className={`cursor-pointer transition-all border p-4 rounded-xl relative ${selectedToken === token.address
                     ? 'bg-blue-600/10 border-blue-500 shadow-lg'
                     : 'bg-slate-900/50 border-slate-800 hover:border-slate-700'
                   }`}
@@ -84,6 +86,43 @@ export default function App() {
                 {selectedToken === token.address && <div className="absolute top-2 right-2 w-2 h-2 bg-blue-500 rounded-full animate-pulse" />}
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Fee Token Selection */}
+        <section className="space-y-3">
+          <h2 className="text-[10px] font-bold text-slate-500 uppercase flex items-center gap-2">
+            <Fuel size={14} /> Gas Fee Token
+          </h2>
+          <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-4">
+            <div className="flex items-center gap-4 flex-wrap">
+              <span className="text-sm text-slate-400">Pay gas fees with:</span>
+              <div className="flex gap-2">
+                {feeTokensList.map((token) => {
+                  const balance = balances.find(b => b.address === token.address);
+                  return (
+                    <button
+                      key={token.address}
+                      onClick={() => setFeeToken(token.address)}
+                      className={`px-4 py-2 rounded-lg font-bold text-sm transition-all ${
+                        feeToken === token.address
+                          ? 'bg-emerald-600 text-white shadow-lg'
+                          : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+                      }`}
+                    >
+                      {token.symbol}
+                      <span className="text-xs ml-2 opacity-70">
+                        ({loadingBalances ? '...' : parseFloat(balance?.formatted || 0).toFixed(2)})
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+            <p className="text-xs text-slate-500 mt-3 flex items-center gap-2">
+              <Activity size={12} />
+              Current fee token: <span className="text-emerald-400 font-bold">{currentFeeToken.symbol}</span>
+            </p>
           </div>
         </section>
 
@@ -117,13 +156,16 @@ export default function App() {
           </div>
 
           <button
-            onClick={() => executeBatchPayment(employees, selectedToken)}
+            onClick={() => executeBatchPayment(employees, selectedToken, feeToken)}
             disabled={isProcessing || employees.length === 0}
             className={`w-full py-4 rounded-xl font-bold transition-all ${isProcessing || employees.length === 0 ? 'bg-slate-800 text-slate-600' : 'bg-blue-600 hover:bg-blue-500 text-white shadow-xl'
               }`}
           >
             {isProcessing ? 'Processing...' : `Execute Batch Payroll with ${currentToken.symbol}`}
           </button>
+          <p className="text-xs text-center text-slate-500 mt-2">
+            Gas fees will be paid in {currentFeeToken.symbol}
+          </p>
         </div>
 
         {/* Console with Explorer Links */}
