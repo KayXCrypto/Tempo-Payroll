@@ -1,6 +1,6 @@
 // Tempo Testnet Chain Configuration
 export const tempoTestnet = {
-  id: 42429,
+  id: 42431,
   name: 'Tempo Testnet',
   network: 'tempo-testnet',
   nativeCurrency: {
@@ -10,12 +10,12 @@ export const tempoTestnet = {
   },
   rpcUrls: {
     default: {
-      http: ['https://rpc.testnet.tempo.xyz'],
-      webSocket: ['wss://rpc.testnet.tempo.xyz'],
+      http: ['https://rpc.moderato.tempo.xyz'],
+      webSocket: ['wss://rpc.moderato.tempo.xyz'],
     },
     public: {
-      http: ['https://rpc.testnet.tempo.xyz'],
-      webSocket: ['wss://rpc.testnet.tempo.xyz'],
+      http: ['https://rpc.moderato.tempo.xyz'],
+      webSocket: ['wss://rpc.moderato.tempo.xyz'],
     },
   },
   blockExplorers: {
